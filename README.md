@@ -19,8 +19,8 @@ If a user accidentally uses the same account outside of your system you want to 
 
 ## List of RPC Specifications
 
-[eth_getTransactionBySenderAndNonce](./eth_getTransactionBySenderAndNonce.md)
-[eth_getLogs+timestamp](./eth_getLogs+timestamp.md)
+[eth_getTransactionBySenderAndNonce](./eth_getTransactionBySenderAndNonce.md)     
+[eth_getLogs+timestamp](./eth_getLogs+timestamp.md)        
 - https://ethereum-magicians.org/t/proposal-for-adding-blocktimestamp-to-logs-object-returned-by-eth-getlogs-and-related-requests/11183
 
 ## Contributors
