@@ -1,10 +1,10 @@
-# `eth_getTransactionBySenderAndNonce`
+# Draft RPC Proposals
 
-> RPC Method for verifying Onnichain transaction confirmations and recoverying faster for local chain state sync use cases.
+> RPC Methods for various proposed/draft EIPs
 
 ## Abstract
 
-A specification for the new Ethereum JSON-RPC Method `eth_getTransactionBySenderAndNonce`:
+A specification for the new Ethereum JSON-RPC Methods
 
 ## Overview
 
@@ -17,14 +17,17 @@ Returns the transaction object for a given sender's address and nonce, if any. T
 If a user accidentally uses the same account outside of your system you want to detect it, and without this method it is exceeding difficult. 
 
 
-## Specification
+## List of RPC Specifications
 
 [eth_getTransactionBySenderAndNonce](./eth_getTransactionBySenderAndNonce.md)
+[eth_getLogs+timestamp](./eth_getLogs+timestamp.md)
+- https://ethereum-magicians.org/t/proposal-for-adding-blocktimestamp-to-logs-object-returned-by-eth-getlogs-and-related-requests/11183
 
 ## Contributors
 
 Patricio Palladino    
 Sam Bacha     
+Wighawag
 
 ## License 
 
