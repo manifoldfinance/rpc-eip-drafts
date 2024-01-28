@@ -1,6 +1,6 @@
 ---
 title: Specification for eth_getTransactionBySenderAndNonce RPC Method
-description:
+description: see https://github.com/ethereum/execution-apis/issues/494
 version:
 author:
 ---
