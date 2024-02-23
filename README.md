@@ -1,36 +1,58 @@
-# Draft RPC Proposals
+# Draft Specifications for EIP and ERC's
 
-> RPC Methods for various proposed/draft EIPs
+## EIP Proposal for new Transaction Type and corresponding RPC
 
-## Abstract
+## Draft EIPS
 
-A specification for the new Ethereum JSON-RPC Methods
+### eth_getTransactionConfirmations
 
-## Overview
+  The purpose of this method is to return the number of transactions an account has broadcasted or sent.
 
-Returns the transaction object for a given sender's address and nonce, if any. This method provides a way for users to check which transaction is using a specific nonce for their address. It can be particularly useful in scenarios where users want to understand the status of a particular transaction or if they suspect that a nonce might have been used maliciously.
+## Well Defined EIPs
 
-## Motivation
+Below EIPs are considered a **requeriment** for us:
 
-> Consider this use case. We journal everything we do. If the system dies we recover the state from that journal and move on. You need to re sync your local state with the chain first. That may mean a tx having been replaced. You can get the new tx, you can only try to fetch the old one and you receive a null. -- *Patricio Palladino*
+- [EIP-2718 | Transaction Envelopes](https://eips.ethereum.org/EIPS/eip-2718)
 
-If a user accidentally uses the same account outside of your system you want to detect it, and without this method it is exceeding difficult. 
+  **Abstract**: `TransactionType || TransactionPayload` is a valid transaction and `TransactionType || ReceiptPayload` is a valid transaction receipt where `TransactionType` identifies the format of the transaction and `*Payload` is the transaction/receipt contents, which are defined in future EIPs.
 
+- [EIP-2930 | Optional access lists](https://eips.ethereum.org/EIPS/eip-2930)
 
-## List of RPC Specifications
+  **Abstract**: We introduce a new [EIP-2718](./reference/EIPS/eip-2718.md) transaction type, with the format `0x01 || rlp([chainId, nonce, gasPrice, gasLimit, to, value, data, accessList, signatureYParity, signatureR, signatureS])`.
+  The `accessList` specifies a list of addresses and storage keys; these addresses and storage keys are added into the `accessed_addresses` and `accessed_storage_keys` global sets (introduced in [EIP-2929](./reference/EIPS/eip-2929.md)). A gas cost is charged, though at a discount relative to the cost of accessing outside the list.
 
-[eth_getTransactionBySenderAndNonce](./eth_getTransactionBySenderAndNonce.md)     
-[eth_getLogs+timestamp](./eth_getLogs+timestamp.md)        
-- https://ethereum-magicians.org/t/proposal-for-adding-blocktimestamp-to-logs-object-returned-by-eth-getlogs-and-related-requests/11183
+- [EIP-3584 | Block Access Lists](https://eips.ethereum.org/EIPS/eip-3584)
 
-## Contributors
+  **Abstract**: A proposal to build a block's `access_list` and include its fingerprint `AccessListRoot` in the block header.
 
-Patricio Palladino    
-Sam Bacha     
-Wighawag
+### Complementary EIPs
 
-## License 
+Below EIPs are considered **complimentary** we don't depend on but can serve us as inspiration:
 
-UPL-1.0 / CC-1.0
+- [EIP 2976 | Typed Transactions over Gossip](https://eips.ethereum.org/EIPS/eip-2976)
 
+  **Abstract**: [Typed Transactions](./reference/EIPS/eip-2976.md) can be sent over devp2p as `TransactionType || TransactionPayload`.
+  The exact contents of the `TransactionPayload` are defined by the `TransactionType` in future EIPs, and clients may start supporting their gossip without incrementing the devp2p version.
+  If a client receives a `TransactionType` that it doesn't recognize, it **SHOULD** disconnect from the peer who sent it.
+  Clients **MUST NOT** send new transaction types before they believe the fork block is reached.
+
+## EIP Political Process
+
+```mermaid
+stateDiagram-v2
+  direction LR
+  [*] --> Draft
+  Draft --> Review
+  Review --> Living
+  Review --> Implementation
+  Implementation --> Final
+  Final --> [*]
+  Final --> Moribund
+
+  Draft --> Withdrawn
+  Review --> Withdrawn
+  Implementation --> Withdrawn
+  Implementation --> Deferred
+  Withdrawn --> [*]
+```
 
