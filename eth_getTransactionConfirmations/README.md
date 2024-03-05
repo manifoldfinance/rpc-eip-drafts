@@ -1,7 +1,7 @@
 ---
 Title: eth_getTransactionConfirmations JSON-RPC Method Specification for Ethereum Clients
 Author: Sam Bacha, {{ contributors }}
-Date: {{ rfc.3339=seconds }}
+Date: { { rfc.3339=seconds } }
 Status: Draft
 ---
 
@@ -11,9 +11,9 @@ This document proposes a new JSON-RPC method for Ethereum clients named "eth_get
 
 ## Terminology
 
-- JSON-RPC: A remote procedure call (RPC) protocol encoded in JSON.
-- Ethereum: An open-source, blockchain-based platform featuring smart contract functionality.
-- Transaction: A signed data package that stores a message to be sent from an externally owned account.
+-   JSON-RPC: A remote procedure call (RPC) protocol encoded in JSON.
+-   Ethereum: An open-source, blockchain-based platform featuring smart contract functionality.
+-   Transaction: A signed data package that stores a message to be sent from an externally owned account.
 
 ## Specification
 
@@ -37,10 +37,10 @@ eth_getTransactionConfirmations
 
 ```json
 {
-  "id":1,
-  "jsonrpc":"2.0",
-  "method":"eth_getTransactionConfirmations",
-  "params":["0x742d35Cc6634C0532925a3b844Bc454e4438f44e", "latest", "0x1b4"]
+	"id": 1,
+	"jsonrpc": "2.0",
+	"method": "eth_getTransactionConfirmations",
+	"params": ["0x742d35Cc6634C0532925a3b844Bc454e4438f44e", "latest", "0x1b4"]
 }
 ```
 
@@ -48,9 +48,9 @@ eth_getTransactionConfirmations
 
 ```json
 {
-  "id":1,
-  "jsonrpc":"2.0",
-  "result":"0x41"
+	"id": 1,
+	"jsonrpc": "2.0",
+	"result": "0x41"
 }
 ```
 

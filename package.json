@@ -1,15 +1,17 @@
 {
-  "name": "eth-gettx",
-  "version": "1.0.0",
-  "description": "## Abstract",
-  "main": "prettier.config.js",
+  "name": "ethereum-eip-erc-drafts",
+  "version": "0.0.0",
+  "description": "EIP and ERC drafts",
+  "files": "*",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "fmt": "npx prettier --config .prettierrc.js --write '**/*.md'",
+    "check": "find . -name \"*.md,*.mdx\" | xargs -n 1 markdown-link-check"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "sam bacha",
+  "license": "MIT",
   "devDependencies": {
+    "markdown-link-check": "^3.11.2",
     "prettier": "^3.0.3"
   }
 }

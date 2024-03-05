@@ -12,25 +12,23 @@ Returns the transaction object for a given sender's address and nonce, if any. T
 
 ## Motivation
 
-> Consider this use case. We journal everything we do. If the system dies we recover the state from that journal and move on. You need to re sync your local state with the chain first. That may mean a tx having been replaced. You can get the new tx, you can only try to fetch the old one and you receive a null. -- *Patricio Palladino*
+> Consider this use case. We journal everything we do. If the system dies we recover the state from that journal and move on. You need to re sync your local state with the chain first. That may mean a tx having been replaced. You can get the new tx, you can only try to fetch the old one and you receive a null. -- _Patricio Palladino_
 
-If a user accidentally uses the same account outside of your system you want to detect it, and without this method it is exceeding difficult. 
-
+If a user accidentally uses the same account outside of your system you want to detect it, and without this method it is exceeding difficult.
 
 ## List of RPC Specifications
 
-[eth_getTransactionBySenderAndNonce](./eth_getTransactionBySenderAndNonce.md)     
-[eth_getLogs+timestamp](./eth_getLogs+timestamp.md)        
-- https://ethereum-magicians.org/t/proposal-for-adding-blocktimestamp-to-logs-object-returned-by-eth-getlogs-and-related-requests/11183
+[eth_getTransactionBySenderAndNonce](./eth_getTransactionBySenderAndNonce.md)  
+[eth_getLogs+timestamp](./eth_getLogs+timestamp.md)
+
+-   https://ethereum-magicians.org/t/proposal-for-adding-blocktimestamp-to-logs-object-returned-by-eth-getlogs-and-related-requests/11183
 
 ## Contributors
 
-Patricio Palladino    
-Sam Bacha     
+Patricio Palladino  
+Sam Bacha  
 Wighawag
 
-## License 
+## License
 
 UPL-1.0 / CC-1.0
-
-

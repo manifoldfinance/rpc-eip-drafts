@@ -1,7 +1,6 @@
-# `eth_getLogs` with `blockTimestamp` 
+# `eth_getLogs` with `blockTimestamp`
 
 A Proposal for adding blockTimestamp to logs object returned by eth_getLogs and related requests
-
 
 ## [](https://ethereum-magicians.org/t/proposal-for-adding-blocktimestamp-to-logs-object-returned-by-eth-getlogs-and-related-requests/11183#motivation-1)Motivation
 
@@ -44,7 +43,8 @@ params: [
 
 ```
 
-#### **Returns**  
+#### **Returns**
+
 `Array` - Array of log objects, with following params:
 
 -   `removed`: `TAG` - `true` when the log was removed, due to a chain reorganization. `false` if its a valid log.
