@@ -1,0 +1,106 @@
+openapi: 3.0.0
+info:
+  title: MEV Send Beta Bundle API
+  description: API for submitting transaction bundles for MEV purposes on Ethereum.
+  version: "1.0.0"
+servers:
+  - url: https://holesky-api.securerpc.com/v2
+    description: Testnet Server for MEV Send Beta Bundle
+
+paths:
+  /:
+    post:
+      tags:
+        - MEV Bundle Submission
+      summary: Submit a bundle of transactions to be included in a specific block.
+      description: >
+        This endpoint allows for the submission of a set of transactions as a bundle for inclusion in a specific block. It is designed for transactions that are not priority-sensitive. Transactions that exceed the block's gas limit will be dropped in the order they are listed, allowing for partial fulfillment of the bundle.
+      operationId: mev_sendBetaBundle
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MevSendBetaBundleRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MevSendBetaBundleResponse'
+        '400':
+          description: Bad request due to missing required fields, invalid slot, or transaction format.
+        '401':
+          description: Unauthorized, typically if the transaction originator does not have a corresponding call option for the slot.
+        '500':
+          description: Internal server error indicating a problem with the server.
+
+components:
+  schemas:
+    MevSendBetaBundleRequest:
+      type: object
+      properties:
+        jsonrpc:
+          type: string
+          description: JSON-RPC protocol version, should always be "2.0".
+          example: "2.0"
+        method:
+          type: string
+          description: The JSON-RPC method name, for this operation it should be "mev_sendBetaBundle".
+          example: "mev_sendBetaBundle"
+        params:
+          type: array
+          description: An array containing a single object with the transaction bundle details.
+          items:
+            type: object
+            required:
+              - txs
+              - slot
+            properties:
+              txs:
+                type: array
+                description: An array of raw transactions (as hex strings) to be included in the bundle.
+                items:
+                  type: string
+                  description: A single raw transaction as a hex string.
+              slot:
+                type: string
+                description: The target block number as a string for the bundle to be included.
+        id:
+          type: integer
+          description: A unique identifier for the JSON-RPC request.
+          example: 8
+    MevSendBetaBundleResponse:
+      type: object
+      properties:
+        jsonrpc:
+          type: string
+          description: JSON-RPC protocol version, echoed back from the request.
+          example: "2.0"
+        method:
+          type: string
+          description: The JSON-RPC method name, echoed back from the request.
+          example: "mev_sendBetaBundle"
+        params:
+          type: array
+          description: An array containing a single object with the transaction bundle details, echoed back from the request.
+          items:
+            type: object
+            required:
+              - txs
+              - slot
+            properties:
+              txs:
+                type: array
+                description: An array of raw transactions (as hex strings) included in the bundle, echoed back from the request.
+                items:
+                  type: string
+                  description: A single raw transaction as a hex string, echoed back.
+              slot:
+                type: string
+                description: The target block number as a string for the bundle to be included, echoed back.
+        id:
+          type: integer
+          description: A unique identifier for the JSON-RPC request, echoed back.
+          example: 8
