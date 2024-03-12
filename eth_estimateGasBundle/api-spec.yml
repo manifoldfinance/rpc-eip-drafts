@@ -1,0 +1,110 @@
+openapi: 3.0.0
+info:
+  title: Ethereum Bundle API
+  version: "1.0"
+paths:
+  /eth_callBundle:
+    post:
+      summary: Simulate a bundle of transactions
+      description: >
+        Simulate a bundle of transactions at the top of a given block with the state of another
+        (or the same) block. This can be used to simulate future blocks with the current state,
+        or it can be used to simulate a past block. The sender is responsible for signing the
+        transactions and using the correct nonce and ensuring validity.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CallBundleArgs'
+      responses:
+        '200':
+          description: A map of transaction simulation results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        gasUsed:
+                          type: integer
+                          description: The amount of gas used by the transaction.
+        '400':
+          description: Invalid input
+  /eth_estimateGasBundle:
+    post:
+      summary: Estimate gas for a bundle of transactions
+      description: >
+        Estimate the gas required for executing a bundle of transactions without actually
+        sending them to the network. This is useful for predicting gas usage and costs.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CallBundleArgs'
+      responses:
+        '200':
+          description: A map of estimated gas for each transaction in the bundle
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        gasUsed:
+                          type: integer
+                          description: The estimated amount of gas used by the transaction.
+        '400':
+          description: Invalid input
+components:
+  schemas:
+    CallBundleArgs:
+      type: object
+      properties:
+        txs:
+          type: array
+          items:
+            type: string
+          description: An array of signed transaction data in hexadecimal format.
+        blockNumber:
+          type: string
+          description: The block number for which the bundle is targeted.
+        stateBlockNumberOrHash:
+          type: string
+          description: The block number or hash for which the state should be used.
+        coinbase:
+          type: string
+          nullable: true
+          description: The address of the miner of the block; optional.
+        timestamp:
+          type: integer
+          format: int64
+          nullable: true
+          description: The timestamp of the block; optional.
+        timeout:
+          type: integer
+          format: int64
+          nullable: true
+          description: Timeout in milliseconds for the simulation; optional.
+        gasLimit:
+          type: integer
+          format: int64
+          nullable: true
+          description: Gas limit for the block; optional.
+        difficulty:
+          type: string
+          nullable: true
+          description: The difficulty of the block; optional, in hexadecimal.
+        baseFee:
+          type: string
+          nullable: true
+          description: The base fee per gas of the block; optional, in hexadecimal.
