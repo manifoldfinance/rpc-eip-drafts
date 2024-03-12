@@ -1,0 +1,223 @@
+openapi: 3.0.0
+info:
+  title: Captive Insurance Protocol API
+  description: API for managing a blockchain-based captive insurance for Ethereum Validator staking.
+  version: "1.0.0"
+servers:
+  - url: 'https://api.captiveinsurance.com/v1'
+    description: Production server
+paths:
+  /validators:
+    post:
+      summary: Enroll a new validator
+      operationId: enrollValidator
+      tags:
+        - Validators
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Validator'
+      responses:
+        '201':
+          description: Validator enrolled successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidatorResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /validators/{validatorId}/premium:
+    post:
+      summary: Pay insurance premium
+      operationId: payPremium
+      tags:
+        - Validators
+      parameters:
+        - name: validatorId
+          in: path
+          required: true
+          description: The unique identifier of the validator
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PremiumPayment'
+      responses:
+        '200':
+          description: Premium payment successful
+        '400':
+          description: Invalid input or payment details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Validator not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /claims:
+    post:
+      summary: Submit a claim
+      operationId: submitClaim
+      tags:
+        - Claims
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClaimSubmission'
+      responses:
+        '201':
+          description: Claim submitted successfully
+        '400':
+          description: Invalid claim details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /claims/{claimId}/verify:
+    post:
+      summary: Verify a claim
+      operationId: verifyClaim
+      tags:
+        - Claims
+      parameters:
+        - name: claimId
+          in: path
+          required: true
+          description: The unique identifier of the claim
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Claim verification successful
+        '400':
+          description: Verification failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Claim not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /claims/{claimId}/payout:
+    post:
+      summary: Process a claim payout
+      operationId: processPayout
+      tags:
+        - Claims
+      parameters:
+        - name: claimId
+          in: path
+          required: true
+          description: The unique identifier of the claim
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Claim payout processed successfully
+        '400':
+          description: Payout failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Claim not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Validator:
+      type: object
+      required:
+        - id
+        - stakeAmount
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the validator
+        stakeAmount:
+          type: number
+          format: float
+          description: Amount of ETH staked by the validator
+
+    ValidatorResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the enrolled validator
+        status:
+          type: string
+          description: Status of the enrollment
+        stakeAmount:
+          type: number
+          format: float
+          description: Amount of ETH staked by the validator
+
+    PremiumPayment:
+      type: object
+      required:
+        - amount
+      properties:
+        amount:
+          type: number
+          format: float
+          description: Amount of ETH to be paid as premium
+
+    ClaimSubmission:
+      type: object
+      required:
+        - validatorId
+        - slashEvidence
+      properties:
+        validatorId:
+          type: string
+          description: Unique identifier for the validator
+        slashEvidence:
+          type: string
+          description: Evidence of the slashing event
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+tags:
+  - name: Validators
+    description: Operations related to validators in the Captive Insurance Protocol
+  - name: Claims
+    description: Operations related to claims in the Captive Insurance Protocol
