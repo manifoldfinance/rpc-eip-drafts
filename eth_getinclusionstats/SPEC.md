@@ -1,4 +1,3 @@
-
 ---
 EIP: XXXX
 Title: Add `eth_getinclusionstats` RPC Method
@@ -23,40 +22,44 @@ Understanding transaction inclusion dynamics is crucial for both users and devel
 ### **Method Name**: `eth_getinclusionstats`
 
 ### **Parameters**:
-  1. `TRANSACTION_HASH`: The hash of the transaction for which inclusion statistics are being requested.
-  2. `BLOCK_PARAMETER`: An optional parameter specifying the block (by number, hash, or the string "latest") up to which the search should be conducted. If omitted, the search includes the latest block.
+
+1. `TRANSACTION_HASH`: The hash of the transaction for which inclusion statistics are being requested.
+2. `BLOCK_PARAMETER`: An optional parameter specifying the block (by number, hash, or the string "latest") up to which the search should be conducted. If omitted, the search includes the latest block.
 
 ### **Returns**: An object containing:
-  - `included`: A boolean indicating whether the transaction was included in a block (`true`) or not (`false`).
-  - `blockHash`: The hash of the block in which the transaction was included. `null` if the transaction has not been included in any block.
-  - `blockNumber`: The number of the block in which the transaction was included. `null` if the transaction has not been included in any block.
-  - `transactionIndex`: The index position of the transaction in the block. `null` if the transaction has not been included in any block.
-  - Additional fields may be included to provide further analytics, such as average inclusion time, network congestion metrics, etc.
+
+-   `included`: A boolean indicating whether the transaction was included in a block (`true`) or not (`false`).
+-   `blockHash`: The hash of the block in which the transaction was included. `null` if the transaction has not been included in any block.
+-   `blockNumber`: The number of the block in which the transaction was included. `null` if the transaction has not been included in any block.
+-   `transactionIndex`: The index position of the transaction in the block. `null` if the transaction has not been included in any block.
+-   Additional fields may be included to provide further analytics, such as average inclusion time, network congestion metrics, etc.
 
 ### **Example**:
+
 ```jsonc
-  // Request
-  {
-    "jsonrpc": "2.0",
-    "method": "eth_getinclusionstats",
-    "params": ["0x...transaction hash...", "latest"],
-    "id": 1
-  }
+// Request
+{
+	"jsonrpc": "2.0",
+	"method": "eth_getinclusionstats",
+	"params": ["0x...transaction hash...", "latest"],
+	"id": 1
+}
 ```
 
-  // Response
+// Response
+
 ```jsonc
-  {
-    "jsonrpc": "2.0",
-    "id": 1,
-    "result": {
-      "included": true,
-      "blockHash": "0x...block hash...",
-      "blockNumber": "0x...block number...",
-      "transactionIndex": "0x15"
-      // Additional fields as necessary
-    }
-  }
+{
+	"jsonrpc": "2.0",
+	"id": 1,
+	"result": {
+		"included": true,
+		"blockHash": "0x...block hash...",
+		"blockNumber": "0x...block number...",
+		"transactionIndex": "0x15"
+		// Additional fields as necessary
+	}
+}
 ```
 
 **Rationale**
@@ -74,9 +77,10 @@ This EIP is fully backwards compatible as it introduces a new method without alt
 **Test Cases**
 
 Test cases for an implementation are essential for ensuring the method behaves as expected across different scenarios. These should cover, at a minimum:
-- A transaction included in a block.
-- A transaction not yet included in any block.
-- Querying with and without the `BLOCK_PARAMETER`.
+
+-   A transaction included in a block.
+-   A transaction not yet included in any block.
+-   Querying with and without the `BLOCK_PARAMETER`.
 
 **Implementation**
 
@@ -84,5 +88,5 @@ Test cases for an implementation are essential for ensuring the method behaves a
 
 **References**
 
-- Existing Ethereum JSON RPC documentation.
-- Related EIPs and Ethereum GitHub discussions.
+-   Existing Ethereum JSON RPC documentation.
+-   Related EIPs and Ethereum GitHub discussions.

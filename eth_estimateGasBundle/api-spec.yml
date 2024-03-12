@@ -1,16 +1,14 @@
 openapi: 3.0.0
 info:
   title: Ethereum Bundle API
-  version: "1.0"
+  version: '1.0'
 paths:
   /eth_callBundle:
     post:
       summary: Simulate a bundle of transactions
       description: >
-        Simulate a bundle of transactions at the top of a given block with the state of another
-        (or the same) block. This can be used to simulate future blocks with the current state,
-        or it can be used to simulate a past block. The sender is responsible for signing the
-        transactions and using the correct nonce and ensuring validity.
+        Simulate a bundle of transactions at the top of a given block with the state of another (or the same) block. This can be used to simulate future blocks with the current state, or it can be used to simulate a past block. The sender is responsible for signing the transactions and using the correct nonce and ensuring validity.
+
       requestBody:
         required: true
         content:
@@ -39,8 +37,8 @@ paths:
     post:
       summary: Estimate gas for a bundle of transactions
       description: >
-        Estimate the gas required for executing a bundle of transactions without actually
-        sending them to the network. This is useful for predicting gas usage and costs.
+        Estimate the gas required for executing a bundle of transactions without actually sending them to the network. This is useful for predicting gas usage and costs.
+
       requestBody:
         required: true
         content:

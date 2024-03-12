@@ -1,1 +1,1 @@
-extends: ["@stoplight/spectral-documentation"]
+extends: ['@stoplight/spectral-documentation']
