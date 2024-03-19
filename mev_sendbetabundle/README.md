@@ -11,6 +11,9 @@ Miner Extractable Value (MEV) strategies often require the submission of transac
 
 ## Specification
 
+> [!NOTE]
+> See the [OpenAPI Specification document for cannonical API](https://github.com/manifoldfinance/rpc-eip-drafts/blob/master/mev_sendbetabundle/openapi.yaml)
+
 ### Method Name
 `mev_sendBetaBundle`
 
