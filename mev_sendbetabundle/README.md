@@ -1,7 +1,3 @@
-Creating an Ethereum Improvement Proposal (EIP) for a custom JSON-RPC method involves several key components. Below is a structured approach to drafting an EIP for the `mev_sendBetaBundle` method, based on the provided information. This draft aims to follow the EIP format closely, incorporating rationale, specifications, and examples.
-
----
-
 # EIP-XXXX: MEV Send Beta Bundle Method
 
 ## Simple Summary
@@ -33,8 +29,10 @@ Miner Extractable Value (MEV) strategies often require the submission of transac
 - Transactions that would cause the block's gas limit to be exceeded are dropped in the order they appear in the bundle.
 
 ### Example
-Request:
-```json
+
+#### Request
+
+```jsonc
 {
   "jsonrpc": "2.0",
   "method": "mev_sendBetaBundle",
@@ -48,8 +46,9 @@ Request:
 }
 ```
 
-Response:
-```json
+#### Response
+
+```jsonc
 {
   "jsonrpc": "2.0",
   "method": "mev_sendBetaBundle",
@@ -67,6 +66,7 @@ Response:
 The `mev_sendBetaBundle` method is designed to accommodate the specific needs of MEV strategies that do not require transactions to be executed in a priority order within a block. By allowing transactions to be bundled and specifying the block in which they should be included, this method provides a more flexible and efficient way to manage MEV-related transactions. The decision to drop transactions exceeding the block's gas limit in the order they are listed allows for partial fulfillment of the bundle, ensuring that the most critical transactions can be prioritized by the sender.
 
 ## Security Considerations
+
 - This method requires careful management of the block's gas limit to prevent denial of service attacks by submitting large bundles that could monopolize block space.
 - Implementers should ensure that only authorized users have the ability to submit transaction bundles to prevent spam and potential manipulation of block contents.
 
@@ -77,7 +77,3 @@ The `mev_sendBetaBundle` method is designed to accommodate the specific needs of
 
 ## Implementation
 This EIP requires changes to Ethereum client software to support the new JSON-RPC method. Implementations should follow the specifications outlined above to ensure compatibility across different clients.
-
----
-
-This draft EIP provides a comprehensive overview of the proposed `mev_sendBetaBundle` method, including its purpose, specifications, and considerations. It's structured to fit within the Ethereum Improvement Proposal framework, aiming for clarity, completeness, and technical accuracy.
