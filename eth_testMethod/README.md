@@ -1,16 +1,17 @@
-### EIP-XXXX: Custom JSON-RPC Methods for Ethereum Client Testing
+---
+eip: XXXX
+title: eth_test a JSON-RPC Methods for Ethereum Client Testing
+author:
+discussions-to:
+status: Final
+type: Standards Track
+category: Core
+created:
+---
+
+### EIP-XXXX: eth_test a Custom JSON-RPC Methods for Ethereum Client Testing
 
 #### Preamble
-```
-EIP: <EIP number>
-Title: Custom JSON-RPC Methods for Ethereum Client Testing
-Author: <Author(s)>
-Type: Standards Track
-Category: Interface
-Status: Draft
-Created: <Date>
-Requires (*optional): <EIP number(s)>
-```
 
 #### Abstract
 This EIP introduces a set of custom JSON-RPC methods designed to facilitate comprehensive testing of Ethereum clients. These methods enable the simulation of various network conditions, smart contract interactions, and blockchain states, providing developers with powerful tools for evaluating client performance, security, and compatibility.
