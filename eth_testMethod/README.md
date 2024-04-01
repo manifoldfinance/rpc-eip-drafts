@@ -3,7 +3,7 @@ eip: XXXX
 title: eth_test a JSON-RPC Methods for Ethereum Client Testing
 author:
 discussions-to:
-status: Final
+status: unsubmitted working draft
 type: Standards Track
 category: Core
 created:
