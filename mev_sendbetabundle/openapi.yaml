@@ -82,31 +82,28 @@ components:
       type: object
       required:
         - jsonrpc
-        - result
         - id
+        - method
+        - result
       properties:
         jsonrpc:
           type: string
           enum: ['2.0']
           description: JSON-RPC version
           example: '2.0'
-        result:
-          type: object
-          properties:
-            txs:
-              type: array
-              items:
-                type: string
-                description: Raw transaction data as a hex string
-                example: '0xf86c808504a817c80082520894f5d3f722b63b9d4a4ff8f37b8213e544d2bde95580b844a9059cbb000000000000000000000000bcd4042de499d14e55001ccbb24a551f3b954096000000000000000000000000000000000000000000000000000000000000000001ca0e1fd7a794b59ad58e77c6d0e08b17e6e9893d6c600c1f24a19a34b02c9e4bc8a065c0b9c5b41baf9478d2e2e42ac20ff2c0a8e091d7a9b80ff20f08c16964a1a'
-            slot:
-              type: string
-              description: The block number at which the bundle should be included
-              example: '1001'
         id:
           type: integer
           description: Unique identifier for the request
-          example: 8
+          example: 1
+        method:
+          type: string
+          enum: ['mev_sendBetaBundle']
+          description: JSON-RPC method name
+          example: 'mev_sendBetaBundle'
+        result:
+          type: string
+          description: Result of the method call
+          example: '0x79e5cba7876f532218ac35a357209800be2362dd2e3f1e6dc5974698f0d7cee4'
     JsonRpcError:
       type: object
       required:
