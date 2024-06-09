@@ -18,11 +18,11 @@ Miner Extractable Value (MEV) strategies often require the submission of transac
 `mev_sendBetaBundle`
 
 ### Parameters
-1. `txs` - Array of raw transactions (as hex strings) to be included in the bundle.
-2. `slot` - The block number (as a string) at which the bundle should be included.
+1. `txs` - Array of raw transactions (as hex strings) to be included in the bundle. (Required)
+2. `slot` - The block number (as a string) at which the bundle should be included. (Required)
 
 ### Returns
-- `jsonrpc`: The JSON-RPC version (e.g., "2.0").
+- `jsonrpc`: The JSON-RPC version (i,e "2.0").
 - `method`: The method name (`mev_sendBetaBundle`).
 - `params`: An array containing a single object with two fields: `txs` (an array of raw transaction data) and `slot` (the target block number as a string).
 - `id`: A unique identifier for the request.
@@ -53,17 +53,13 @@ Miner Extractable Value (MEV) strategies often require the submission of transac
 
 ```jsonc
 {
-  "jsonrpc": "2.0",
-  "method": "mev_sendBetaBundle",
-  "params": [
-    {
-      "txs": ["0x... - rawData"],
-      "slot": "1001"
-    }
-  ],
-  "id": 8
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "mev_sendBetaBundle",
+    "result": "0x79e5cba7876f532218ac35a357209800be2362dd2e3f1e6dc5974698f0d7cee4"
 }
 ```
+
 
 ## Rationale
 The `mev_sendBetaBundle` method is designed to accommodate the specific needs of MEV strategies that do not require transactions to be executed in a priority order within a block. By allowing transactions to be bundled and specifying the block in which they should be included, this method provides a more flexible and efficient way to manage MEV-related transactions. The decision to drop transactions exceeding the block's gas limit in the order they are listed allows for partial fulfillment of the bundle, ensuring that the most critical transactions can be prioritized by the sender.
